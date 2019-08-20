@@ -123,14 +123,17 @@ Resources:
               commands:
                 - $(aws ecr get-login --no-include-email)
                 - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
-                - IMAGE_URI="${REPOSITORY_URI}:${TAG}"
+                - BRANCH_TAG_IMAGE_URI="${REPOSITORY_URI}:${CODEBUILD_SOURCE_VERSION}"
+                - UNIQUE_IMAGE_URI="${REPOSITORY_URI}:${CODEBUILD_SOURCE_VERSION}-${TAG}"
             build:
               commands:
-                - docker build --tag "$IMAGE_URI" .
+                - docker build --tag "$BRANCH_TAG_IMAGE_URI" .
+                - docker tag "$BRANCH_TAG_IMAGE_URI" "$UNIQUE_IMAGE_URI"
             post_build:
               commands:
-                - docker push "$IMAGE_URI"
-                - printf '[{"name":"simple-app","imageUri":"%s"}]' "$IMAGE_URI" > images.json
+                - docker push "$BRANCH_TAG_IMAGE_URI"
+                - docker push "$UNIQUE_IMAGE_URI"
+                - printf '[{"name":"simple-app","imageUri":"%s"}]' "$UNIQUE_IMAGE_URI" > images.json
           artifacts:
             files: images.json
       Environment:
@@ -182,21 +185,6 @@ Resources:
               InputArtifacts:
                 - Name: App
               OutputArtifacts:
-                - Name: BuildOutput
-              RunOrder: 1
-        - Name: Deploy
-          Actions:
-            - Name: Deploy
-              ActionTypeId:
-                Category: Deploy
-                Owner: AWS
-                Version: 1
-                Provider: ECS
-              Configuration:
-                ClusterName: !Ref Cluster
-                ServiceName: !Ref Service
-                FileName: images.json
-              InputArtifacts:
                 - Name: BuildOutput
               RunOrder: 1
 
