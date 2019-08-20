@@ -81,16 +81,6 @@ Metadata:
 
 
 Resources:
-  Cluster:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplateBucket}/templates/ecs-cluster.yaml"
-      Parameters:
-        LaunchType: !Ref LaunchType
-        SourceSecurityGroup: !GetAtt LoadBalancer.Outputs.SecurityGroup
-        Subnets: !GetAtt VPC.Outputs.Subnets
-        VpcId: !GetAtt VPC.Outputs.VpcId
-
   DeploymentPipeline:
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -103,35 +93,6 @@ Resources:
         GitHubRepo: !Ref GitHubRepo
         GitHubBranch: !Ref GitHubBranch
 
-  LoadBalancer:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplateBucket}/templates/load-balancer.yaml"
-      Parameters:
-        LaunchType: !Ref LaunchType
-        Subnets: !GetAtt VPC.Outputs.Subnets
-        VpcId: !GetAtt VPC.Outputs.VpcId
-
-  VPC:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplateBucket}/templates/vpc.yaml"
-      Parameters:
-        Name: !Ref AWS::StackName
-        VpcCIDR: 10.215.0.0/16
-        Subnet1CIDR: 10.215.10.0/24
-        Subnet2CIDR: 10.215.20.0/24
-
-  Service:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplateBucket}/templates/service.yaml"
-      Parameters:
-        Cluster: !GetAtt Cluster.Outputs.ClusterName
-        LaunchType: !Ref LaunchType
-        TargetGroup: !GetAtt LoadBalancer.Outputs.TargetGroup
-        SourceSecurityGroup: !GetAtt LoadBalancer.Outputs.SecurityGroup
-        Subnets: !GetAtt VPC.Outputs.Subnets
 
 
 Outputs:
