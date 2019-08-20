@@ -21,9 +21,8 @@ compatible with solutions like [FluxCD](https://github.com/fluxcd/flux).
 
 #### 1. Fork the GitHub repository
 
-[Fork](https://help.github.com/articles/fork-a-repo/) the [Amazon ECS sample
-app](https://github.com/awslabs/ecs-demo-php-simple-app) GitHub repository into
-your GitHub account.
+[Fork](https://help.github.com/articles/fork-a-repo/) the [Demo Rails App](https://github.com/kingdonb/demorailsapp)
+GitHub repository into your GitHub account.
 
 From your terminal application, execute the following command (make sure to
 replace `<your_github_username>` with your actual GitHub username):
@@ -67,7 +66,7 @@ The CloudFormation stack provides the following output:
 ### Testing the example
 
 After the CloudFormation stack is created, the latest commit to the GitHub
-repository is run through the pipeline and deployed to ECS. Open the
+repository is run through the pipeline and pushed to an ECR repo. Open the
 **PipelineUrl** to watch the first revision run through the CodePipeline
 pipeline. After the deploy step turns green, then take the image and deploy it
 to your cluster manually (or set up GitOps and automate your deploys!):
@@ -110,17 +109,15 @@ This reference architecture sample is [licensed][license] under Apache 2.0.
 [continuous-deployment]: https://aws.amazon.com/devops/continuous-delivery/
 [architecture]: images/architecture.pdf
 [license]: LICENSE
-[ec2]: https://aws.amazon.com/ec2/
-[launch-types]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html
-[us-east-1]: https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=ECS-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
-[us-east-2]: https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/create/review?stackName=ECS-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
-[us-west-1]: https://console.aws.amazon.com/cloudformation/home?region=us-west-1#/stacks/create/review?stackName=ECS-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
-[us-west-2]: https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/create/review?stackName=ECS-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
-[eu-west-1]: https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/review?stackName=ECS-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
-[eu-west-2]: https://console.aws.amazon.com/cloudformation/home?region=eu-west-2#/stacks/create/review?stackName=ECS-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
-[eu-central-1]: https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/create/review?stackName=ECS-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
-[ap-southeast-1]: https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/create/review?stackName=ECS-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
-[ap-southeast-2]: https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/create/review?stackName=ECS-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
-[ap-northeast-1]: https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/create/review?stackName=ECS-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
-[ap-northeast-2]: https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/create/review?stackName=ECS-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
-[ca-central-1]: https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/create/review?stackName=ECS-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
+[us-east-1]: https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=Docker-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
+[us-east-2]: https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/create/review?stackName=Docker-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
+[us-west-1]: https://console.aws.amazon.com/cloudformation/home?region=us-west-1#/stacks/create/review?stackName=Docker-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
+[us-west-2]: https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/create/review?stackName=Docker-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
+[eu-west-1]: https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/review?stackName=Docker-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
+[eu-west-2]: https://console.aws.amazon.com/cloudformation/home?region=eu-west-2#/stacks/create/review?stackName=Docker-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
+[eu-central-1]: https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/create/review?stackName=Docker-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
+[ap-southeast-1]: https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/create/review?stackName=Docker-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
+[ap-southeast-2]: https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/create/review?stackName=Docker-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
+[ap-northeast-1]: https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/stacks/create/review?stackName=Docker-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
+[ap-northeast-2]: https://console.aws.amazon.com/cloudformation/home?region=ap-northeast-2#/stacks/create/review?stackName=Docker-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
+[ca-central-1]: https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/create/review?stackName=Docker-ContinuousDeployment&templateURL=https://s3.amazonaws.com/kingdonb-refarch-continuous-deployment/kingdonb-refarch-continuous-deployment.yaml
