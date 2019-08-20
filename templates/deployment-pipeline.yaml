@@ -16,12 +16,6 @@ Parameters:
   GitHubUser:
     Type: String
 
-  Cluster:
-    Type: String
-
-  Service:
-    Type: String
-
 
 Resources:
   Repository:
