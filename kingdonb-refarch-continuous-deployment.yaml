@@ -14,7 +14,7 @@ Parameters:
 
   GitHubRepo:
     Type: String
-    Default: kingdonb/demorailsapp
+    Default: demorailsapp
     Description: The repo name of the source code for your image.
 
   GitHubBranch:
