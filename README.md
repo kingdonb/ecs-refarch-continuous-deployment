@@ -41,16 +41,9 @@ Deploy | Region Name | Region | Launch Types
 :---: | ------------ | ------------- | -------------
 [🚀][us-east-1] | US East (N. Virginia) | us-east-1 | Fargate, EC2
 [🚀][us-east-2] | US East (Ohio) | us-east-2 | EC2
-[🚀][us-west-1] | US West (N. California) | us-west-1 | EC2
-[🚀][us-west-2] | US West (Oregon) | us-west-2 | EC2
-[🚀][eu-west-1] | EU (Ireland) | eu-west-1 | EC2
-[🚀][eu-west-2] | EU (London) | eu-west-2 | EC2
-[🚀][eu-central-1] | EU (Frankfurt) | eu-central-1 | EC2
-[🚀][ap-southeast-1] | Asia Pacific (Singapore) | ap-southeast-1 | EC2
-[🚀][ap-southeast-2] | Asia Pacific (Sydney) | ap-southeast-2 | EC2
-[🚀][ap-northeast-1] | Asia Pacific (Tokyo) | ap-northeast-1 | EC2
-[🚀][ap-northeast-2] | Asia Pacific (Seoul) | ap-northeast-2 | EC2
-[🚀][ca-central-1] | Canada (Central) | ca-central-1 | EC2
+
+(the omitted regions are left out intentionally, as they are outside of the `boundary-delegated-iam`
+required internally for use with our group's IAM policy)
 
 This reference architecture can only be deployed to Regions which have all
 necessary services available. See the [Region
