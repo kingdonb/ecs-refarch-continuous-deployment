@@ -4,47 +4,33 @@ AWSTemplateFormatVersion: 2010-09-09
 
 Description: >
   This template shows how to use AWS CodePipeline and AWS CodeBuild to build an
-  automated continuous deployment pipeline to Amazon Elastic Container Service
-  (Amazon ECS) using clusters powered by AWS Fargate or Amazon Elastic Compute
-  Cloud (Amazon EC2).
+  automated continuous integration pipeline from GitHub to Docker Images.
 
 
 Parameters:
-  LaunchType:
-    Type: String
-    Default: Fargate
-    AllowedValues:
-      - Fargate
-      - EC2
-    Description: >
-      The launch type for your service. Selecting EC2 will create an Auto
-      Scaling group of t2.micro instances for your cluster. See
-      https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html
-      to learn more about launch types.
-
   GitHubUser:
     Type: String
     Description: Your username on GitHub.
 
   GitHubRepo:
     Type: String
-    Default: ecs-demo-php-simple-app
-    Description: The repo name of the sample service.
+    Default: kingdonb/demorailsapp
+    Description: The repo name of the source code for your image.
 
   GitHubBranch:
     Type: String
     Default: master
-    Description: The branch of the repo to continuously deploy.
+    Description: The branch of the repo to build and automate.
 
   GitHubToken:
     Type: String
     NoEcho: true
     Description: >
-      Token for the user specified above. (https://github.com/settings/tokens)
+      A Deploy Key scoped for the repo specified above, with at least read access.
 
   TemplateBucket:
     Type: String
-    Default: ecs-refarch-continuous-deployment
+    Default: kingdonb-refarch-continuous-deployment
     Description: >
       The S3 bucket from which to fetch the templates used by this stack.
 
@@ -96,10 +82,6 @@ Resources:
 
 
 Outputs:
-  ServiceUrl:
-    Description: The sample service that is being continuously deployed.
-    Value: !GetAtt LoadBalancer.Outputs.ServiceUrl
-
   PipelineUrl:
     Description: The continuous deployment pipeline in the AWS Management Console.
     Value: !GetAtt DeploymentPipeline.Outputs.PipelineUrl
