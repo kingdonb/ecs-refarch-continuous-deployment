@@ -14,7 +14,7 @@ Parameters:
 
   GitHubRepo:
     Type: String
-    Default: kingdonb/demorailsapp
+    Default: demorailsapp
     Description: The repo name of the source code for your image.
 
   GitHubBranch:
@@ -72,8 +72,6 @@ Resources:
     Properties:
       TemplateURL: !Sub "https://s3.amazonaws.com/${TemplateBucket}/templates/deployment-pipeline.yaml"
       Parameters:
-        Cluster: !GetAtt Cluster.Outputs.ClusterName
-        Service: !GetAtt Service.Outputs.Service
         GitHubUser: !Ref GitHubUser
         GitHubToken: !Ref GitHubToken
         GitHubRepo: !Ref GitHubRepo

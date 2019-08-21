@@ -16,12 +16,6 @@ Parameters:
   GitHubUser:
     Type: String
 
-  Cluster:
-    Type: String
-
-  Service:
-    Type: String
-
 
 Resources:
   Repository:
@@ -123,8 +117,8 @@ Resources:
               commands:
                 - $(aws ecr get-login --no-include-email)
                 - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
-                - BRANCH_TAG_IMAGE_URI="${REPOSITORY_URI}:${CODEBUILD_SOURCE_VERSION}"
-                - UNIQUE_IMAGE_URI="${REPOSITORY_URI}:${CODEBUILD_SOURCE_VERSION}-${TAG}"
+                - BRANCH_TAG_IMAGE_URI="${REPOSITORY_URI}:${GITHUB_BRANCH}"
+                - UNIQUE_IMAGE_URI="${REPOSITORY_URI}:${GITHUB_BRANCH}-${TAG}"
             build:
               commands:
                 - docker build --tag "$BRANCH_TAG_IMAGE_URI" .
@@ -141,6 +135,8 @@ Resources:
         Image: aws/codebuild/docker:17.09.0
         Type: LINUX_CONTAINER
         EnvironmentVariables:
+          - Name: GITHUB_BRANCH
+            Value: !Ref GitHubBranch
           - Name: AWS_DEFAULT_REGION
             Value: !Ref AWS::Region
           - Name: REPOSITORY_URI
