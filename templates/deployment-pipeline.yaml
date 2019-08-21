@@ -128,7 +128,7 @@ Resources:
                 - date
                 - docker pull "$BRANCH_TAG_IMAGE_URI" >/dev/null || true
                 - date
-                - docker build --tag "$BRANCH_TAG_IMAGE_URI" .
+                - docker build --cache-from "$DOCKER_UPSTREAM" --cache-from "$BRANCH_TAG_IMAGE_URI" --tag "$BRANCH_TAG_IMAGE_URI" .
                 - date
                 - docker tag "$BRANCH_TAG_IMAGE_URI" "$UNIQUE_IMAGE_URI"
             post_build:
