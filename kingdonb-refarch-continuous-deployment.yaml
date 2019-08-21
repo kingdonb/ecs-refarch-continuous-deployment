@@ -28,12 +28,17 @@ Parameters:
     Description: >
       A Deploy Key scoped for the repo specified above, with at least read access.
 
+  DockerUpstream:
+    Type: String
+    Default: kingdonb/rails:postgresql
+    Description: >
+      The Dockerfile downstream's FROM setting.
+
   TemplateBucket:
     Type: String
     Default: kingdonb-refarch-continuous-deployment
     Description: >
       The S3 bucket from which to fetch the templates used by this stack.
-
 
 Metadata:
   AWS::CloudFormation::Interface:
@@ -46,15 +51,11 @@ Metadata:
         default: "Branch"
       GitHubToken:
         default: "Personal Access Token"
-      LaunchType:
-        default: "Launch Type"
+      DockerUpstream:
+        default: "Upstream Docker Repo"
     ParameterGroups:
       - Label:
-          default: Cluster Configuration
-        Parameters:
-          - LaunchType
-      - Label:
-          default: GitHub Configuration
+          default: Image Build Configuration
         Parameters:
           - GitHubRepo
           - GitHubBranch
@@ -76,6 +77,7 @@ Resources:
         GitHubToken: !Ref GitHubToken
         GitHubRepo: !Ref GitHubRepo
         GitHubBranch: !Ref GitHubBranch
+        DockerUpstream: !Ref DockerUpstream
 
 
 

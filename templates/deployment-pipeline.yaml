@@ -16,6 +16,9 @@ Parameters:
   GitHubUser:
     Type: String
 
+  DockerUpstream:
+    Type: String
+
 
 Resources:
   Repository:
@@ -121,13 +124,19 @@ Resources:
                 - UNIQUE_IMAGE_URI="${REPOSITORY_URI}:${GITHUB_BRANCH}-${TAG}"
             build:
               commands:
+                - docker pull "$DOCKER_UPSTREAM" >/dev/null || true
+                - date
                 - docker pull "$BRANCH_TAG_IMAGE_URI" >/dev/null || true
+                - date
                 - docker build --tag "$BRANCH_TAG_IMAGE_URI" .
+                - date
                 - docker tag "$BRANCH_TAG_IMAGE_URI" "$UNIQUE_IMAGE_URI"
             post_build:
               commands:
                 - docker push "$BRANCH_TAG_IMAGE_URI"
+                - date
                 - docker push "$UNIQUE_IMAGE_URI"
+                - date
                 - printf '[{"name":"simple-app","imageUri":"%s"}]' "$UNIQUE_IMAGE_URI" > images.json
           artifacts:
             files: images.json
@@ -142,6 +151,8 @@ Resources:
             Value: !Ref AWS::Region
           - Name: REPOSITORY_URI
             Value: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${Repository}
+          - Name: DOCKER_UPSTREAM
+            Value: !Ref DockerUpstream
       Name: !Ref AWS::StackName
       ServiceRole: !Ref CodeBuildServiceRole
 
