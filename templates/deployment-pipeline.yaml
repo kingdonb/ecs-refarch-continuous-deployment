@@ -121,7 +121,7 @@ Resources:
                 - UNIQUE_IMAGE_URI="${REPOSITORY_URI}:${GITHUB_BRANCH}-${TAG}"
             build:
               commands:
-                - docker pull "$BRANCH_TAG_IMAGE_URI" || true
+                - docker pull "$BRANCH_TAG_IMAGE_URI" >/dev/null || true
                 - docker build --tag "$BRANCH_TAG_IMAGE_URI" .
                 - docker tag "$BRANCH_TAG_IMAGE_URI" "$UNIQUE_IMAGE_URI"
             post_build:
