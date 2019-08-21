@@ -136,7 +136,6 @@ Resources:
         Image: aws/codebuild/docker:17.09.0
         Type: LINUX_CONTAINER
         EnvironmentVariables:
-          EnvironmentVariables:
           - Name: GITHUB_BRANCH
             Value: !Ref GitHubBranch
           - Name: AWS_DEFAULT_REGION
